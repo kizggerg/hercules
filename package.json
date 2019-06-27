@@ -1,0 +1,11 @@
+{
+  "name": "hercules",
+  "version": "1.0.0",
+  "description": "A code reviewer that allows reviewers to interact with a debuggable instance.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
