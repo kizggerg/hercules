@@ -21,15 +21,10 @@
     <h1>Comments</h1>
     <div id="add-comment">
       Add Comment to Github
-      <textarea rows="4" cols="30"></textarea>
-      <br />
-      <label>
-        Include Screensot: <input type="checkbox" name="Include Screenshot" />
-      </label>
+      <textarea rows="4" cols="30" id="user-comment"></textarea>
       <br />
       <span>
-        <button>Submit</button>
-        <button>Cancel</button>
+        <button onclick="newComment()">Submit</button>
       </span>
     </div>
     <div id="comments-view"></div>
@@ -51,5 +46,14 @@
         )
         .join(" ");
     });
+
+    function newComment() {
+      var element = document.getElementById("user-comment");
+      var content = element.value;
+      store.send("new-comment", {
+        comment: content
+      });
+      element.value = "";
+    }
   </script>
 </html>

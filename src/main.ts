@@ -1,13 +1,26 @@
-import { BrowserWindow } from "electron";
+import { BrowserWindow, ipcMain } from "electron";
 import Tunnel from "./Services/Tunnel";
 import { windows, loadBrowser, registerOnClose } from "./Electron/Setup";
-import { GetPullRequestComments } from "./Services/GitHub";
+import {
+  GetPullRequestComments,
+  CommentOnPullRequest
+} from "./Services/GitHub";
 
 let Windows: { [key: string]: BrowserWindow } = windows;
 
-const playground = async () => {
-  let comments = await GetPullRequestComments("acl-services", "paprika", 73);
-  Windows["comments"].webContents.send("comments-data", comments);
+const setupGithub = () => {
+  let dispatchComments = async () => {
+    let comments = await GetPullRequestComments("kizggerg", "hercules", 1);
+    Windows["comments"].webContents.send("comments-data", comments);
+  };
+
+  ipcMain.on("new-comment", (event: Event, comment: any) =>
+    CommentOnPullRequest("kizggerg", "hercules", 1, comment.comment).then(
+      dispatchComments
+    )
+  );
+
+  dispatchComments();
 };
 
 const main = async (): Promise<void> => {
@@ -23,5 +36,5 @@ const exit = (error: Error) => {
 
 main()
   .then(() => registerOnClose(process.exit))
-  .then(playground)
+  .then(setupGithub)
   .catch(exit);

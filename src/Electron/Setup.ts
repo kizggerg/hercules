@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, MenuItem } from "electron";
+import { app, BrowserWindow } from "electron";
 import Wait from "../Utils/Wait";
 
 // Keep a global reference of the window object, if you don't, the window will
