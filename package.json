@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/rest": "^16.28.2",
     "express": "^4.17.1",
     "netcat": "^1.4.0",
     "ngrok": "^3.2.1"

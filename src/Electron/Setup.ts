@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Menu, MenuItem } from "electron";
 import Wait from "../Utils/Wait";
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -42,16 +42,6 @@ function initialize() {
     "/Users/gregory_gzik/src/hercules/client/comments.html"
   );
   windows["comments"] = commentWindow;
-
-  let codeWindow = createWindow(1024 + 300, 300, {
-    frame: false,
-    parent: browserWindow,
-    x: commentWindow.getBounds().x,
-    y: browserWindow.getBounds().y + 768,
-    webPreferences
-  });
-  codeWindow.loadFile("/Users/gregory_gzik/src/hercules/client/code.html");
-  windows["code"] = codeWindow;
 }
 
 async function loadBrowser(url: string) {

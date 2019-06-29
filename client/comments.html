@@ -1,7 +1,55 @@
 <html>
+  <style>
+    body {
+      background-color: whitesmoke;
+    }
+
+    .single_comment {
+      border-style: solid;
+      border-color: black;
+      margin: 10;
+      background-color: lightgray;
+      padding: 10;
+    }
+
+    #add-comment {
+      padding: 10;
+      margin: 10;
+    }
+  </style>
   <body>
-    <p>
-      I AM COMMENTS!
-    </p>
+    <h1>Comments</h1>
+    <div id="add-comment">
+      Add Comment to Github
+      <textarea rows="4" cols="30"></textarea>
+      <br />
+      <label>
+        Include Screensot: <input type="checkbox" name="Include Screenshot" />
+      </label>
+      <br />
+      <span>
+        <button>Submit</button>
+        <button>Cancel</button>
+      </span>
+    </div>
+    <div id="comments-view"></div>
   </body>
+  <script>
+    var store = require("electron").ipcRenderer;
+    store.on("comments-data", (event, data) => {
+      document.getElementById("comments-view").innerHTML = data
+        .map(
+          comment => `
+        <div class="single_comment">
+          ${comment.user.login}
+          <br />
+          <p> 
+            ${comment.body}
+          </p>
+        </div>
+      `
+        )
+        .join(" ");
+    });
+  </script>
 </html>
